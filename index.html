@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y COMPANY | 와이컴퍼니</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Do+Hyeon&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F9C83A;
+    --dark:   #181818;
+    --dark2:  #222222;
+    --dark3:  #2e2e2e;
+    --white:  #ffffff;
+    --gray:   #999999;
+    --lgray:  #f4f4f4;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── 커스텀 커서 ── */
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--yellow); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1.5px solid var(--yellow); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+  a:hover ~ .cursor, button:hover ~ .cursor { width: 20px; height: 20px; }
+
+  /* ── 네비게이션 ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; height: 72px;
+    background: rgba(24,24,24,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  nav.scrolled { height: 60px; background: rgba(24,24,24,0.98); }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo-y {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 32px; color: var(--yellow);
+    line-height: 1;
+  }
+  .nav-logo-text {
+    font-size: 11px; font-weight: 700; letter-spacing: 4px;
+    color: var(--white); opacity: 0.9;
+  }
+
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 2px;
+    color: rgba(255,255,255,0.6); text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--yellow);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: var(--dark); background: var(--yellow);
+    padding: 10px 24px; text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--white); }
+
+  /* ── 히어로 ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--yellow);
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 0 0 60px 60px;
+  }
+
+  .hero-y-bg {
+    position: absolute; top: -5%; left: -8%;
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: clamp(480px, 50vw, 680px);
+    color: rgba(0,0,0,0.1);
+    line-height: 1; pointer-events: none;
+    user-select: none;
+    animation: heroY 6s ease-in-out infinite;
+  }
+  @keyframes heroY {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+
+  .hero-company-label {
+    position: relative; z-index: 2;
+  }
+  .hero-company-label span {
+    font-size: 13px; font-weight: 700; letter-spacing: 6px;
+    color: var(--dark); opacity: 0.7;
+    text-transform: uppercase; display: block; margin-bottom: 8px;
+  }
+  .hero-company-label strong {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 22px; letter-spacing: 6px;
+    color: var(--dark);
+  }
+
+  .hero-right {
+    background: var(--dark);
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 60px 80px;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    color: var(--yellow); text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 5.5vw, 80px);
+    line-height: 1.05;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title em { color: var(--yellow); font-style: normal; }
+
+  .hero-desc {
+    font-size: 14px; font-weight: 300; line-height: 1.9;
+    color: rgba(255,255,255,0.55);
+    max-width: 420px; margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .btn-primary {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: var(--dark); background: var(--yellow);
+    padding: 16px 36px; text-decoration: none;
+    text-transform: uppercase; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+  .btn-outline {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: var(--white); border: 1px solid rgba(255,255,255,0.25);
+    padding: 16px 36px; text-decoration: none;
+    text-transform: uppercase; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; right: 60px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .hero-scroll span {
+    font-size: 10px; letter-spacing: 3px; color: var(--gray);
+    text-transform: uppercase; writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 50px; background: var(--gray);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── 섹션 공통 ── */
+  section { padding: 120px 60px; }
+
+  .section-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 4px;
+    color: var(--yellow); text-transform: uppercase;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--yellow);
+  }
+
+  .section-title {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.1; margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 13px; color: var(--gray); letter-spacing: 1px;
+    margin-bottom: 64px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--dark2); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start; max-width: 1200px; margin: 0 auto;
+  }
+
+  .about-text p {
+    font-size: 15px; line-height: 2.0; color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+  }
+  .about-text p strong {
+    color: var(--white); font-weight: 700;
+  }
+
+  .about-info {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border); margin-top: 48px;
+    border: 1px solid var(--border);
+  }
+  .about-info-item {
+    background: var(--dark2);
+    padding: 20px 24px;
+  }
+  .about-info-item dt {
+    font-size: 9px; letter-spacing: 3px; color: var(--yellow);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .about-info-item dd {
+    font-size: 13px; font-weight: 700; color: var(--white);
+  }
+
+  .about-strengths {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .strength-card {
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .strength-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--yellow); transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .strength-card:hover { border-color: rgba(249,200,58,0.3); transform: translateY(-4px); }
+  .strength-card:hover::before { transform: scaleX(1); }
+
+  .strength-card .icon {
+    font-size: 22px; margin-bottom: 14px;
+  }
+  .strength-card h4 {
+    font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--white);
+  }
+  .strength-card p {
+    font-size: 11.5px; line-height: 1.7; color: var(--gray);
+  }
+
+  /* ── VISION ── */
+  #vision {
+    background: var(--dark);
+    position: relative; overflow: hidden;
+  }
+
+  .vision-bg-y {
+    position: absolute; right: -5%; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 520px; color: rgba(249,200,58,0.04);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+
+  .vision-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; max-width: 1200px; margin: 0 auto 64px;
+  }
+
+  .vm-card {
+    padding: 48px 40px; position: relative; overflow: hidden;
+  }
+  .vm-card.yellow { background: var(--yellow); }
+  .vm-card.dark   { background: var(--dark3); border: 1px solid var(--border); }
+  .vm-card.dark::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--yellow);
+  }
+
+  .vm-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; margin-bottom: 20px;
+    opacity: 0.6;
+  }
+  .vm-card.yellow .vm-label { color: var(--dark); }
+  .vm-card.dark   .vm-label { color: var(--yellow); }
+
+  .vm-text {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2;
+  }
+  .vm-card.yellow .vm-text { color: var(--dark); }
+  .vm-card.dark   .vm-text { color: var(--white); }
+
+  /* Core Values */
+  .values-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .value-item {
+    background: var(--dark2);
+    padding: 36px 28px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .value-item:hover { background: var(--dark3); }
+  .value-item::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .value-item:hover::after { transform: scaleX(1); }
+
+  .value-en {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: var(--yellow); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .value-ko {
+    font-size: 18px; font-weight: 900; color: var(--white);
+    margin-bottom: 14px;
+  }
+  .value-desc {
+    font-size: 12px; line-height: 1.8; color: var(--gray);
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--lgray); color: var(--dark); }
+  #services .section-title { color: var(--dark); }
+  #services .section-tag { }
+  #services .section-sub { color: #888; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 40px 28px 36px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--yellow);
+  }
+  .service-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(0,0,0,0.12); }
+
+  .service-mice {
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    color: var(--yellow); text-transform: uppercase; margin-bottom: 20px;
+    display: inline-block;
+    background: var(--dark); padding: 4px 10px;
+  }
+  .service-title {
+    font-size: 17px; font-weight: 900; color: var(--dark);
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .service-items {
+    list-style: none;
+  }
+  .service-items li {
+    font-size: 12px; color: #666; line-height: 1.7;
+    padding-left: 14px; position: relative;
+  }
+  .service-items li::before {
+    content: '—'; position: absolute; left: 0;
+    color: var(--yellow); font-size: 10px;
+  }
+
+  /* ── COMPETENCIES ── */
+  #competencies { background: var(--dark2); }
+
+  .comp-list {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--border);
+  }
+  .comp-item {
+    display: grid; grid-template-columns: 80px 1fr 1fr;
+    align-items: center; gap: 40px;
+    padding: 36px 40px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .comp-item:last-child { border-bottom: none; }
+  .comp-item:hover { background: var(--dark3); }
+
+  .comp-num {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 48px; color: var(--yellow);
+    line-height: 1;
+  }
+  .comp-title { font-size: 17px; font-weight: 900; color: var(--white); margin-bottom: 4px; }
+  .comp-en    { font-size: 11px; color: var(--yellow); letter-spacing: 2px; }
+  .comp-desc  { font-size: 13px; color: var(--gray); line-height: 1.8; }
+
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--dark); }
+
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; max-width: 1200px; margin: 0 auto;
+  }
+  .portfolio-card {
+    background: var(--dark2);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .portfolio-card:hover { border-color: rgba(249,200,58,0.4); transform: translateY(-4px); }
+
+  .portfolio-year {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--dark); background: var(--yellow);
+    padding: 4px 12px; margin-bottom: 8px;
+  }
+  .portfolio-role {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    color: var(--yellow); background: var(--dark3);
+    border: 1px solid rgba(249,200,58,0.3);
+    padding: 4px 12px; margin-bottom: 20px; margin-left: 8px;
+  }
+  .portfolio-title {
+    font-size: 15px; font-weight: 700; color: var(--white);
+    line-height: 1.5;
+  }
+  .portfolio-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .portfolio-card:hover::after { transform: scaleX(1); }
+
+  .portfolio-note {
+    max-width: 1200px; margin: 32px auto 0;
+    font-size: 12px; color: var(--gray); text-align: right;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--yellow);
+    color: var(--dark);
+    position: relative; overflow: hidden;
+  }
+  #contact .section-tag { color: var(--dark); opacity: 0.5; }
+  #contact .section-tag::before { background: var(--dark); }
+  #contact .section-title { color: var(--dark); }
+
+  .contact-bg-y {
+    position: absolute; left: -5%; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 500px; color: rgba(0,0,0,0.06);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .contact-phrase {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.15; color: var(--dark);
+    margin-bottom: 32px;
+  }
+  .contact-phrase em { color: rgba(0,0,0,0.35); font-style: normal; }
+
+  .contact-tagline {
+    font-size: 14px; line-height: 1.9;
+    color: rgba(0,0,0,0.6);
+  }
+
+  .contact-items {
+    display: flex; flex-direction: column; gap: 0;
+    background: var(--dark); padding: 0;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 20px;
+    padding: 22px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: var(--yellow); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .contact-label {
+    font-size: 9px; letter-spacing: 3px; color: var(--gray);
+    text-transform: uppercase; margin-bottom: 3px;
+  }
+  .contact-value {
+    font-size: 13px; font-weight: 700; color: var(--white);
+  }
+  .contact-value a { color: var(--white); text-decoration: none; }
+  .contact-value a:hover { color: var(--yellow); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111;
+    padding: 32px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .footer-logo-y {
+    font-family: 'Do Hyeon', 'Barlow Condensed', sans-serif;
+    font-size: 26px; color: var(--yellow);
+  }
+  .footer-logo-text {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-copy {
+    font-size: 11px; color: rgba(255,255,255,0.25);
+  }
+
+  /* ── 스크롤 애니메이션 ── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── 반응형 ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { min-height: 50vh; padding: 80px 24px 40px; }
+    .hero-right { padding: 60px 24px; }
+    .about-grid, .vision-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid, .values-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .comp-item { grid-template-columns: 60px 1fr; }
+    .comp-desc { display: none; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 커스텀 커서 -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- 네비게이션 -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-y">Y</span>
+    <span class="nav-logo-text">COMPANY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#competencies">Competencies</a></li>
+    
+  </ul>
+  <a href="#contact" class="nav-cta">Contact</a>
+</nav>
+
+<!-- 히어로 -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-y-bg">Y</div>
+    <div class="hero-company-label">
+      <span>Est. 2026</span>
+      <strong>Y COMPANY</strong>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-tag">행사기획 · 제작 · 운영 전문</p>
+    <h1 class="hero-title">
+      기대를 넘어,<br>
+      <em>감동을</em><br>
+      설계합니다
+    </h1>
+    <p class="hero-desc">
+      좋은 행사는 끝난 후에도 기억됩니다.<br>
+      와이컴퍼니는 기획의 첫 줄부터<br>
+      마지막 조명이 꺼지는 순간까지,<br>
+      그 감동을 설계합니다.
+    </p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">서비스 보기</a>
+      <a href="#contact"   class="btn-outline">문의하기</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- 회사 개요 -->
+<section id="about">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-tag reveal">About Us</p>
+    <h2 class="section-title reveal">회사 개요</h2>
+    <p class="section-sub reveal">Company Overview</p>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          와이컴퍼니는 <strong>기획·제작·운영을 직접 수행하는</strong><br>
+          행사 전문 기업입니다.
+        </p>
+        <p>
+          공공기관과 기업의 다양한 행사를 현장에서 책임지며,<br>
+          클라이언트의 목표를 완성도 높은 경험으로 만들어냅니다.
+        </p>
+        <div class="about-info">
+          <div class="about-info-item">
+            <dt>회사명</dt>
+            <dd>주식회사 와이컴퍼니</dd>
+          </div>
+          <div class="about-info-item">
+            <dt>대표이사</dt>
+            <dd>배 은 우</dd>
+          </div>
+          <div class="about-info-item">
+            <dt>설립연도</dt>
+            <dd>2026년</dd>
+          </div>
+          <div class="about-info-item">
+            <dt>주요사업</dt>
+            <dd>행사 기획 · 운영</dd>
+          </div>
+        </div>
+      </div>
+      <div class="about-strengths reveal reveal-delay-2">
+        <div class="strength-card">
+          <div class="icon">⚡</div>
+          <h4>완벽한 운영</h4>
+          <p>사전 시뮬레이션으로<br>무결점 행사 진행</p>
+        </div>
+        <div class="strength-card">
+          <div class="icon">🎯</div>
+          <h4>고객 맞춤</h4>
+          <p>예산·목적에 최적화된<br>맞춤형 파트너십</p>
+        </div>
+        <div class="strength-card">
+          <div class="icon">🎬</div>
+          <h4>통합 프로덕션</h4>
+          <p>무대·영상·음향·조명<br>고퀄리티 운영·연출</p>
+        </div>
+        <div class="strength-card">
+          <div class="icon">🏛️</div>
+          <h4>공공기관 파트너</h4>
+          <p>지자체·정부기관<br>다수 수행</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 비전 & 미션 -->
+<section id="vision">
+  <div class="vision-bg-y">Y</div>
+  <div style="max-width:1200px;margin:0 auto;position:relative;z-index:1;">
+    <p class="section-tag reveal">Vision &amp; Mission</p>
+    <h2 class="section-title reveal">비전 &amp; 미션</h2>
+    <p class="section-sub reveal">우리가 나아가는 방향</p>
+    <div class="vision-grid">
+      <div class="vm-card yellow reveal">
+        <p class="vm-label">Vision</p>
+        <p class="vm-text">기대를 넘어,<br>감동을 설계합니다</p>
+      </div>
+      <div class="vm-card dark reveal reveal-delay-2">
+        <p class="vm-label">Mission</p>
+        <p class="vm-text">탄탄한 기획과 세밀한 운영으로<br>고객의 목표를 현실로 만든다</p>
+      </div>
+    </div>
+    <p class="section-tag reveal" style="margin-bottom:24px;">Core Values</p>
+    <div class="values-grid reveal">
+      <div class="value-item">
+        <p class="value-en">Bespoke</p>
+        <p class="value-ko">고객 맞춤</p>
+        <p class="value-desc">예산·목적·브랜드에 꼭 맞는 단 하나의 행사</p>
+      </div>
+      <div class="value-item">
+        <p class="value-en">Insight</p>
+        <p class="value-ko">깊은 현장 이해</p>
+        <p class="value-desc">현장의 흐름을 읽는 예리한 기획 감각</p>
+      </div>
+      <div class="value-item">
+        <p class="value-en">Craft</p>
+        <p class="value-ko">디테일로 완성</p>
+        <p class="value-desc">작은 것 하나까지 의도를 담아 완성도를 높인다</p>
+      </div>
+      <div class="value-item">
+        <p class="value-en">Ownership</p>
+        <p class="value-ko">끝까지 책임</p>
+        <p class="value-desc">기획부터 마지막 조명이 꺼질 때까지</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 서비스 영역 -->
+<section id="services">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-tag reveal">Service Areas · MICE</p>
+    <h2 class="section-title reveal" style="color:var(--dark);">서비스 영역</h2>
+    <p class="section-sub reveal">Business Areas</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-mice">Meetings</span>
+        <h3 class="service-title">기업 · 공식 행사</h3>
+        <ul class="service-items">
+          <li>비전선포식, 준공식, 개관식</li>
+          <li>창립기념식, 시상식</li>
+          <li>워크숍, 팀빌딩</li>
+          <li>성과공유회, 주주총회</li>
+        </ul>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-mice">Conferences</span>
+        <h3 class="service-title">컨퍼런스 · 포럼 · 교육</h3>
+        <ul class="service-items">
+          <li>국제회의, 정책 포럼</li>
+          <li>심포지엄, 공청회</li>
+          <li>세미나, 학술대회</li>
+          <li>강연 행사, 교육</li>
+        </ul>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-mice">Exhibitions</span>
+        <h3 class="service-title">축제 · 공연 · 전시</h3>
+        <ul class="service-items">
+          <li>지자체 축제, 지역 문화 행사</li>
+          <li>야외 공연, 콘서트</li>
+          <li>박람회, 전시회</li>
+        </ul>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-mice">Incentives + Digital</span>
+        <h3 class="service-title">마케팅 · 온라인 · 투어</h3>
+        <ul class="service-items">
+          <li>BTL 이벤트, 온라인 마케팅</li>
+          <li>웨비나, 하이브리드 이벤트</li>
+          <li>투어 프로그램</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 핵심 역량 -->
+<section id="competencies">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-tag reveal">Core Competencies</p>
+    <h2 class="section-title reveal">핵심 역량</h2>
+    <p class="section-sub reveal">우리가 특별한 이유</p>
+    <div class="comp-list reveal">
+      <div class="comp-item">
+        <div class="comp-num">01</div>
+        <div>
+          <p class="comp-title">독창적 컨셉 기획</p>
+          <p class="comp-en">Creative Concept</p>
+        </div>
+        <p class="comp-desc">트렌드를 반영한 차별화된 기획으로 최상의 몰입도를 창출합니다.</p>
+      </div>
+      <div class="comp-item">
+        <div class="comp-num">02</div>
+        <div>
+          <p class="comp-title">철저한 운영 솔루션</p>
+          <p class="comp-en">Operational Excellence</p>
+        </div>
+        <p class="comp-desc">사전 시뮬레이션 및 안전 관리로 완벽한 행사 운영을 보장합니다.</p>
+      </div>
+      <div class="comp-item">
+        <div class="comp-num">03</div>
+        <div>
+          <p class="comp-title">통합 프로덕션</p>
+          <p class="comp-en">Total Production</p>
+        </div>
+        <p class="comp-desc">무대·영상·조명·음향 통합 운영으로 고퀄리티 현장을 연출합니다.</p>
+      </div>
+      <div class="comp-item">
+        <div class="comp-num">04</div>
+        <div>
+          <p class="comp-title">고객 맞춤 파트너십</p>
+          <p class="comp-en">Client Partnership</p>
+        </div>
+        <p class="comp-desc">고객 목적을 정확히 이해하고 예산 내 최고의 효율을 창출합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 연락처 -->
+<section id="contact">
+  <div class="contact-bg-y">Y</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-tag">Contact Us</p>
+      <h2 class="section-title">문의하기</h2>
+      <p class="contact-tagline">
+        행사 기획 문의, 견적 요청, 파트너십 제안 등<br>
+        언제든지 편하게 연락주세요.<br>
+        빠르고 정확하게 답변드리겠습니다.
+      </p>
+    </div>
+    <div class="contact-items reveal reveal-delay-2">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <p class="contact-label">Address</p>
+          <p class="contact-value">강원특별자치도 원주시 입춘로 45, B901</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <p class="contact-label">Phone</p>
+          <p class="contact-value"><a href="tel:033-900-5335">033-900-5335</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-value"><a href="mailto:admin@newycompany.com">admin@newycompany.com</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <p class="contact-label">Web</p>
+          <p class="contact-value"><a href="http://www.newycompany.com" target="_blank">www.newycompany.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 푸터 -->
+<footer>
+  <div class="footer-logo">
+    <span class="footer-logo-y">Y</span>
+    <span class="footer-logo-text">COMPANY</span>
+  </div>
+  <p class="footer-copy">© 2026 주식회사 와이컴퍼니. All rights reserved.</p>
+</footer>
+
+<script>
+  // 커서
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+
+  // 네비 스크롤
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+  });
+
+  // 스크롤 reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
