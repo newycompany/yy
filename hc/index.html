@@ -211,6 +211,23 @@ footer b{color:var(--gold);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 
+/* ── 스페셜 이벤트 ── */
+.events{display:grid;gap:14px;max-width:760px}
+.ev{position:relative;background:var(--card,#fff);border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden;box-shadow:0 2px 10px rgba(15,46,64,.05)}
+.ev::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--ac)}
+.ev1{--ac:#FFB03B;--soft:#FFF4DF;--deep:#B8720A} .ev2{--ac:#FF7B8E;--soft:#FFE9EC;--deep:#C7364C} .ev3{--ac:#2BC0CF;--soft:#E1F6F8;--deep:#0B6E7A}
+.evh{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px 18px 14px 22px;background:var(--soft)}
+.evh .no{font-size:30px;font-weight:800;color:var(--ac);letter-spacing:-.04em;line-height:1}
+.evh .cond{margin:0 0 3px;font-size:12.5px;color:var(--deep);font-weight:600}
+.evh h3{margin:0;font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.25}
+.evh .ico{font-size:26px;opacity:.9}
+.ev ul{margin:0;padding:12px 18px 14px 22px;list-style:none;display:grid;gap:6px;font-size:13px;line-height:1.55;color:var(--body)}
+.ev ul li{position:relative;padding-left:14px} .ev ul li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--ac)}
+.ev ul li b{font-weight:600;color:var(--ink)}
+.ev .tags{display:flex;flex-wrap:wrap;gap:6px;padding-left:0;margin-top:2px} .ev .tags::before{display:none} .ev .tags span{background:var(--soft);color:var(--deep);border-radius:99px;padding:2px 9px;font-size:11.5px;font-weight:600}
+.ev .fine{font-size:11.5px;color:var(--mute);padding-left:0} .ev .fine::before{display:none}
+@media (min-width:820px){.events{grid-template-columns:repeat(3,1fr);max-width:none;gap:16px;align-items:stretch} .evh{padding:20px 20px 16px 24px} .evh h3{font-size:19px} .ev ul{padding:14px 20px 18px 24px}}
+
 /* ── 부스 배정 ── */
 .btbl{padding:10px 14px 14px;border-top:1px solid var(--line);background:var(--plum-soft)}
 .blist{padding:14px 14px 12px;border-top:1px solid var(--line);background:#fff}
@@ -428,6 +445,22 @@ footer{background:#0F2E40;color:#A9C4CD}
     <button data-d="1" aria-selected="false">2일차 · 10. 16 (금)</button>
   </div>
   <div class="pg" id="timeline"></div>
+  <div class="shead" style="margin-top:38px"><span class="k">EVENT</span><h2>스페셜 이벤트</h2></div>
+  <p class="slead">판매전 영수증 하나로 세 가지 혜택. 이벤트 참여는 당일 영수증만 가능합니다.</p>
+  <div class="events">
+    <article class="ev ev1">
+      <div class="evh"><span class="no">01</span><div><p class="cond">판매전 3만 원 이상 구매 시</p><h3>고급 타월 증정</h3></div><span class="ico" aria-hidden="true">🎁</span></div>
+      <ul><li>당일 영수증 1장 또는 여러 장 합산 가능</li><li>1인 1개 (6만 원 구매해도 1개) · 수령증 서명</li><li>10.15 영수증으로 10.16 참여 불가</li></ul>
+    </article>
+    <article class="ev ev2">
+      <div class="evh"><span class="no">02</span><div><p class="cond">영수증 응모 시</p><h3>우수상품 경품 추첨</h3></div><span class="ico" aria-hidden="true">🎯</span></div>
+      <ul><li><b>10.15 17:30 · 10.16 16:30</b> 야외 특설무대</li><li>영수증 뒷면에 이름 · 주소 · 연락처 기입 후 추첨함에 제출</li><li>10.15 영수증으로 10.16 참여 불가</li></ul>
+    </article>
+    <article class="ev ev3">
+      <div class="evh"><span class="no">03</span><div><p class="cond">스탬프랠리 「도장왕」 완료 시</p><h3>판매전 5,000원 교환권</h3></div><span class="ico" aria-hidden="true">🎟️</span></div>
+      <ul><li><b>일일 선착순 100명</b></li><li>성과전시존 · 포토존 · 판매부스 인증샷 3장을 개인 SNS에 해시태그와 함께 게시</li><li class="tags"><span>#홍천군지역산업혁신페스타</span><span>#홍천우수기업</span><span>#홍천혁신페스타</span></li><li class="fine">교환권 차액은 환불되지 않으며, 조기 소진 시 이벤트가 종료될 수 있습니다.</li></ul>
+    </article>
+  </div>
 </section>
 <section id="plan" hidden>
   <div class="shead"><span class="k">02</span><h2>행사장 배치</h2></div>
