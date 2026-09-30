@@ -211,6 +211,10 @@ footer b{color:var(--gold);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 
+.pk{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:1px 7px;vertical-align:2px;margin-left:2px}
+.pk.free{background:#DDF3E7;color:#1E7A4C} .pk.pay{background:#FFF0D6;color:#9A6608}
+.info .s.warn{margin-top:8px;padding:8px 10px;background:#FFF7E6;border-left:3px solid #FFB03B;border-radius:0 6px 6px 0;color:#5A4A12} .info .s.warn b{font-weight:700;color:#B8720A}
+
 /* ── 스페셜 이벤트 ── */
 .events{display:grid;gap:14px;max-width:760px}
 .ev{position:relative;background:var(--card,#fff);border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden;box-shadow:0 2px 10px rgba(15,46,64,.05)}
@@ -504,7 +508,7 @@ footer{background:#0F2E40;color:#A9C4CD}
   <div class="info">
     <div class="row"><p class="l">주소</p><p class="v">강원특별자치도 홍천군 홍천로 348</p><p class="s">홍천 K-컨벤션 웨딩홀</p></div>
     <div class="row"><p class="l">행사 시간</p><p class="v num">1일차 13:00~18:00 · 2일차 10:00~17:00</p><p class="s">1일차 오전(10:00~)은 사전접수 학급 진로체험만 운영 · 개회식 16:00</p></div>
-    <div class="row"><p class="l">주차</p><p class="v">홍천강둔치 주차장</p><p class="s">강원 홍천군 홍천읍 신장대리 85 · 행사 기간 중 K-컨벤션 주차장은 야외 판매존으로 운영되어 차량은 둔치 주차장 이용을 부탁드립니다</p></div>
+    <div class="row"><p class="l">주차</p><p class="v">홍천강둔치 주차장 <span class="pk free">무료</span> · 공영주차장 <span class="pk pay">유료</span></p><p class="s">홍천강둔치 주차장 — 강원 홍천군 홍천읍 신장대리 85</p><p class="s warn">행사 기간 중 K-컨벤션 주차장은 야외 판매존으로 운영됩니다. <b>둔치 주차장(무료) 또는 공영주차장(유료)</b> 이용을 부탁드립니다.</p></div>
     <div class="row"><p class="l">문의</p><p class="v num">033-439-3241</p><p class="s">(재)홍천메디칼허브연구소</p></div>
   </div>
   <div class="maps">
